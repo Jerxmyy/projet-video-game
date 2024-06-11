@@ -1,3 +1,5 @@
+let player
+
 function setup() {
     createCanvas(1000, 563);
     background('#D9D9D9');
@@ -55,40 +57,40 @@ function setup() {
     arrive.x = 80
 
     // mob
-    mob1 = new Sprite();
-    mob1.color = 'red'
+
+    let mob1 = new Sprite();
+	mob1.width = 50;
+	mob1.height = 100;
     mob1.collider = "kinematic"
-	mob1.w = 40;
-	mob1.h = 40;
+	mob1.image = '🐯';
     mob1.x = 300;
     mob1.y = 350;
 
-    mob2 = new Sprite();
-    mob2.color = 'red'
+    let mob2 = new Sprite();
+	mob2.width = 50;
+	mob2.height = 100;
     mob2.collider = "kinematic"
-	mob2.w = 40;
-	mob2.h = 40;
+	mob2.image = '🐯';
     mob2.x = 300;
     mob2.y = 350;
 
-    mob3 = new Sprite();
-    mob3.color = 'red'
+
+    let mob3 = new Sprite();
+	mob3.width = 50;
+	mob3.height = 100;
     mob3.collider = "kinematic"
-	mob3.w = 40;
-	mob3.h = 40;
+	mob3.image = '🐯';
     mob3.x = 300;
     mob3.y = 350;
 
     // // perso
-    let player = new Sprite();
+    player = new Sprite();
 	player.width = 50;
 	player.height = 50;
 	player.image = '🐼';
     player.x = 50;
     player.y = 435;
-    // if (kb.pressing('left')) player.vel.x = -5;
-    // else if (kb.pressing('right')) player.vel.x = 5;
-    // else player.vel.x = 0;
+
 
 
 
@@ -103,28 +105,10 @@ function setup() {
 
 
 
-let timer = 20
-
 function draw() { 
-  background(220);
-  textAlign(CENTER, CENTER);
-  textSize(100);
-  text(timer, width/2, height/2);
-  
-  // while (timer > 0) {  // this doesn't work because it's all happening at the same time
-  //   timer --;
-  // }
-  
-  // frameCount --> this keeps track of the number of times the program has gone throught the code, 60 = 1 second
-  // % ---> this is the Modulo operator, it divides numbers and evaluates to the remainder: 17 % 5 evaluates to 2 remainder
-  // this can be used to determine if the number on the left is divisible by the number on the right
-  
-  if (frameCount % 60 == 0 && timer > 0) { // if the frameCount is divisible by 60, then a second has passed. it will stop at 0
-    timer --;
-  }
-  if (timer == 0) {
-    text("GAME OVER", width/2, height*0.7);
-  }
-  
+    clear()
+    if (kb.pressing('left')) player.vel.x = -5;
+    else if (kb.pressing('right')) player.vel.x = 5;
+    else if (kb.pressing(' ')) player.vel.y = 40;
+    else player.vel.x = 0;
 }
-
