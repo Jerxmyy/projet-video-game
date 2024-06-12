@@ -1,4 +1,12 @@
 let player
+let mob1;
+let mob2;
+let mob3;
+let movingUp = true;
+let targetY = 200; // La hauteur cible à atteindre
+
+
+
 
 function setup() {
     createCanvas(1000, 563);
@@ -58,7 +66,7 @@ function setup() {
 
     // mob
 
-    let mob1 = new Sprite();
+    mob1 = new Sprite();
 	mob1.width = 50;
 	mob1.height = 100;
     mob1.collider = "kinematic"
@@ -66,16 +74,17 @@ function setup() {
     mob1.x = 300;
     mob1.y = 350;
 
-    let mob2 = new Sprite();
+    mob2 = new Sprite();
 	mob2.width = 50;
 	mob2.height = 100;
     mob2.collider = "kinematic"
 	mob2.image = '🐯';
     mob2.x = 300;
     mob2.y = 350;
+    mob2.debug = true;
 
 
-    let mob3 = new Sprite();
+    mob3 = new Sprite();
 	mob3.width = 50;
 	mob3.height = 100;
     mob3.collider = "kinematic"
@@ -90,6 +99,7 @@ function setup() {
 	player.image = '🐼';
     player.x = 50;
     player.y = 435;
+    player.debug = true;
 
 
 
@@ -107,8 +117,38 @@ function setup() {
 
 function draw() { 
     clear()
+
+
     if (kb.pressing('left')) player.vel.x = -5;
     else if (kb.pressing('right')) player.vel.x = 5;
-    else if (kb.pressing(' ')) player.vel.y = 40;
-    else player.vel.x = 0;
+    if (kb.pressing(' ')) {
+        player.vel.y = 40;
+    }
+    else { player.vel.x = 0;}
+
+    // Mouvement du sprite mob 1
+  if (movingUp) {
+    mob1.y -= 2; // Vitesse de montée
+    if (mob1.y <= targetY) {
+      movingUp = false; // Arrêter de monter et commencer à descendre
+    }
+  } else {
+    mob1.y += 2; // Vitesse de descente
+    if (mob1.y >= 350) {
+      movingUp = true; // Arrêter de descendre et commencer à monter
+    }
+    }
+
+//        // Mouvement du sprite mob 2
+//   if (movingUp) {
+//     mob2.y -= 2; // Vitesse de montée
+//     if (mob2.y <= targetY) {
+//       movingUp = false; // Arrêter de monter et commencer à descendre
+//     }
+//   } else {
+//     mob2.y += 2; // Vitesse de descente
+//     if (mob2.y >= 350) {
+//       movingUp = true; // Arrêter de descendre et commencer à monter
+//     }
+//     }
 }
