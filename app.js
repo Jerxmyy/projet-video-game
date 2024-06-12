@@ -3,10 +3,9 @@ let mob1;
 let mob2;
 let mob3;
 let movingUp = true;
-let targetY = 200; // heigh max
-
-
-
+let targetY = 0; // heigh max
+let movingRight = true;
+let targetX = 700; // La position cible à atteindre
 
 function setup() {
     createCanvas(1000, 563);
@@ -49,7 +48,7 @@ function setup() {
 
     // end
     circle = new Sprite();
-    cirle.color = 'lightgreen';
+    circle.color = 'lightgreen';
     circle.collider = 'nones';
     circle.d = 40;
     circle.y = 50;
@@ -71,26 +70,27 @@ function setup() {
 	mob1.height = 100;
     mob1.collider = "kinematic"
 	mob1.image = '🐯';
-    mob1.x = 300;
-    mob1.y = 350;
+    mob1.x = 200;
+    mob1.y = 200;
+    mob1.debug = true;
 
     mob2 = new Sprite();
 	mob2.width = 50;
 	mob2.height = 100;
     mob2.collider = "kinematic"
 	mob2.image = '🐯';
-    mob2.x = 300;
+    mob2.x = 600;
     mob2.y = 350;
     mob2.debug = true;
 
 
-    mob3 = new Sprite();
-	mob3.width = 50;
-	mob3.height = 100;
-    mob3.collider = "kinematic"
-	mob3.image = '🐯';
-    mob3.x = 300;
-    mob3.y = 350;
+    // mob3 = new Sprite();
+	// mob3.width = 50;
+	// mob3.height = 100;
+    // mob3.collider = "kinematic"
+	// mob3.image = '🐯';
+    // mob3.x = 300;
+    // mob3.y = 350;
 
     // player
     player = new Sprite();
@@ -111,6 +111,10 @@ function setup() {
     floor.h = 200;
     floor.w = 1999;
     floor.y = 560;
+
+
+
+    gameOver = false; // follow game state
 }
 
 
@@ -124,31 +128,37 @@ function draw() {
     if (kb.pressing('space')) {
         player.vel.y = 40;
     }
-    else { player.vel.x = 0;}
+    if (!kb.pressing('left') && !kb.pressing('right') && !kb.pressing('space')) {
+        player.vel.x = 0;
+      }
 
-    // Mouvement sprite mob 1
-  if (movingUp) {
-    mob1.y -= 2; // climb speed
+
+
+// Movement sprite mob 1
+    if (movingUp) {
+        mob1.y -= 2; // climb speed
     if (mob1.y <= targetY) {
       movingUp = false; // Stop going up and start going down
     }
-  } else {
+    } else {
     mob1.y += 2; // descent speed
-    if (mob1.y >= 350) {
+    if (mob1.y >= 200) {
       movingUp = true; // Stop going down and start going up
     }
     }
 
-       // Mouvement sprite mob 2 
-//   if (movingUp) {
-//     mob2.y -= 2; //  climb speed
-//     if (mob2.y <= targetY) {
-//       movingUp = false; // Stop going up and start going down
-//     }
-//   } else {
-//     mob2.y += 2; // descent speed
-//     if (mob2.y >= 350) {
-//       movingUp = true; // Stop going down and start going up
-//     }
-//     }
+// Movement sprite mob 2 
+  if (movingRight) {
+    mob2.x += 2; // right movement speed
+  } else {
+    mob2.x -= 2; // Left movement speed
+  }
+
+  if (mob2.x >= targetX) {
+      movingRight = false; // stop going right and start going left
+  }
+
+if (mob2.x <= 500) {
+    movingRight = true; // stop going left and start going right
+}
 }
